@@ -39,7 +39,7 @@ int main() {
 
     struct Node* temp=head;
 
-    while(temp->next!=NULL) {
+    while(temp!=NULL) {
         printf("%d",temp->data);
         temp=temp->next;
     }
