@@ -53,22 +53,30 @@ void printLinkedList(struct Node* n) {
     }
 }
 
-struct Node* InsertAtIndex(struct Node* head,int index,int data) {
+struct Node* insertAtIndex(struct Node* head, int index, int data) {
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    new_node->data = data;
+    new_node->next = NULL;
 
-    struct Node* new = (struct Node*)malloc(sizeof(struct Node));
-    struct Node* p = (struct Node*)malloc(sizeof(struct Node));
-    new->data = data;
+    if (index == 0) {
+        new_node->next = head;
+        head = new_node;
+        return head;
+    }
+
+    struct Node* current = head;
     int i = 0;
-
-    while (i!=index-1) {
-        p = p->next;
+    while (i < index - 1 && current != NULL) {
+        current = current->next;
         i++;
     }
-    new->next = p->next;
-    p->next = new;
-
+    if (current == NULL) {
+        printf("Error: index out of range");
+        return head;
+    }
+    new_node->next = current->next;
+    current->next = new_node;
     return head;
-
 }
 
 void main() {
@@ -100,19 +108,21 @@ void main() {
 
 
     //Abhi bhut kam baki jaise ki insertion , Searching , deletion ;((((()))))
+    // Inster at beginning :)
     head = insteratbegin(head,400);
+    // After insertion at Begin
     printLinkedList(head);
-
+// Insert at end of the list
     head=insterAtend(head,500);
-
+// Print After inserting at end
     printLinkedList(head);
-
+//inserting after a specific node :)
     head = insterAfterNode(head,second,5000);
-
+//Print inserting after the node
     printLinkedList(head);
-
-    //head = InsertAtIndex(head,2,100000);
-
+//insterting at specific Index :)
+    head = insertAtIndex(head,2,100000);
+//Final Print (After applying insertAtIndex)
     printLinkedList(head);
 
 }
